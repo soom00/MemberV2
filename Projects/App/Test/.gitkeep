@@ -1,0 +1,19 @@
+import ProjectDescription
+import ProjectDescriptionHelpers
+
+let project = Project.makeModule(
+    name: "Sample",
+    platform: .iOS,
+    product: .app,
+    dependencies: [
+        .project(target: "Feature", path: .relativeToRoot("Projects/Feature"))
+    ],
+    resources: ["Resources/**"],
+    infoPlist: .file(path: "Support/Info.plist")
+)
+
+/*
+ - resource만 경로 지정하고 source는 안하는 이유는 makeModule 함수에 sources 기본값으로 경로가 들어가 있음.
+ - info.plist파일에 .extendingDefault를 추가한 이유 : tuist에서 .default 만들어주는 info.plist는 앱을 실행할 때 화면이 어딘가 나사가 빠진 상태로 실행된다. 해당 설정을 추가해주어야 tuist에서 디폴트로 생성해주는 화면에서도 정상적으로 로드할 수 있다.
+ - xcode info.plist파일을 추가해주고 난 후 경로만 지정해주는 방식으로도 사용 가능.
+ */
